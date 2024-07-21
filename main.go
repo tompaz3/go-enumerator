@@ -32,6 +32,8 @@ import (
 	"github.com/tompaz3/go-enumerator/internal/generator"
 )
 
+var version = "v0.0.3"
+
 func main() {
 	inputArgs := strings.Join(os.Args, " ")
 	destination := flag.String("destination", "", "destination file")
@@ -45,7 +47,13 @@ func main() {
 		false,
 		"unmarshal unknown or null values to undefined",
 	)
+	versionPrintRequested := flag.Bool("version", false, "print version")
 	flag.Parse()
+
+	if *versionPrintRequested {
+		printVersion()
+		return
+	}
 
 	values := stripValueNames(*valueNames)
 
@@ -77,4 +85,8 @@ func stripValueNames(valueNames string) []string {
 		return []string{}
 	}
 	return strings.Split(valueNames, ",")
+}
+
+func printVersion() {
+	fmt.Println(version)
 }

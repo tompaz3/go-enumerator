@@ -135,7 +135,7 @@ func (g *generator) generateHeader() {
 	if e.InputArgs != "" {
 		inputArgs = " " + e.InputArgs
 	}
-	w.Line("//go:generate" + inputArgs)
+	w.Line("// generate" + inputArgs)
 	w.LineBreak()
 }
 
