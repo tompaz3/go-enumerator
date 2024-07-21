@@ -90,7 +90,7 @@ Generate using `//go:generate` directive:
 [#usage-example_generated_enum]
 === Example generated enum
 
-You will find the Color enum generated with the command presented above <<usage-generate_using_binary>> (or <<usage-generate_using_go_generate_directive>>) in the link:./internal/generator/directivetest/color/color.go[color.go] file.
+link:./internal/generator/directivetest/color/color.go[color.go] file is the example generated file - using the `//go:generate` command as specified above (<<usage-generate_using_go_generate_directive>>).
 
 [#usage-example_generated_enum-generated_file_structure]
 ==== Generated file structure
