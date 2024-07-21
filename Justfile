@@ -41,4 +41,4 @@ go-test:
   @go test ./...
 
 go-build:
-  @go build -o ./bin/enumerator ./enumerator/main/main.go
+  @go build -o ./bin/enumerator .
