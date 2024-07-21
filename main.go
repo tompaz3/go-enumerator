@@ -36,6 +36,7 @@ var version = "v0.0.3"
 
 func main() {
 	inputArgs := strings.Join(os.Args, " ")
+	copyrightFile := flag.String("copyright", "", "license file")
 	destination := flag.String("destination", "", "destination file")
 	packageName := flag.String("package", "", "package name")
 	typeName := flag.String("type", "", "type name")
@@ -59,6 +60,7 @@ func main() {
 
 	enum := generator.Enum{
 		InputArgs:      inputArgs,
+		CopyrightFile:  *copyrightFile,
 		Destination:    destination,
 		Package:        *packageName,
 		Type:           *typeName,

@@ -32,7 +32,7 @@ go-install:
   @go install mvdan.cc/gofumpt@latest
 
 go-install-enumerator:
-  @go install github.com/tompaz3/go-enumerator@v0.0.3
+  @go install github.com/tompaz3/go-enumerator@v0.0.4
 
 go-generate:
   @go generate ./...
