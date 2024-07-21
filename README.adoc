@@ -8,6 +8,17 @@
 
 `go-enumerator` is a tool for generating compile-time safe enumerations in Go. It follows the _sealed interface_ pattern to forbid value manipulation outside the package.
 
+[#goals]
+== Goals
+
+Project main goal is to deliver a simple, easy-to-use, reliable tool for generating compile-time safe enumerations in Go.
+
+[#non-goals]
+== Non-goals
+
+* Provide true Algebraic Data Type enumeration implementation.
+* Support multiple usage contexts (e.g. XML marshalling, database storage).
+
 [#installation]
 == Installation
 
