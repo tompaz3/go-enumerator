@@ -22,7 +22,7 @@
 #
 
 
-linters-run:
+go-linters-run:
   @gofumpt -l -w .
   @golangci-lint run --fix -j 3 ./...
   @nilaway -include-pkgs="github.com/tompaz3/go-enumerator" ./...
@@ -42,3 +42,6 @@ go-test:
 
 go-build:
   @go build -o ./bin/enumerator .
+
+go-verify: go-install go-install-enumerator go-generate go-linters-run go-test go-build
+  @echo "verified"
