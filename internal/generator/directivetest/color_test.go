@@ -1,9 +1,10 @@
 package directivetest_test
 
 import (
-	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	_ "embed" // embed package is imported for go:embed directive
 )

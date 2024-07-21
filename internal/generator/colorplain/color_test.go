@@ -24,9 +24,11 @@
 package color_test
 
 import (
-	"github.com/stretchr/testify/assert"
-	color "github.com/tompaz3/go-enumerator/internal/generator/colorplain"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
+
+	color "github.com/tompaz3/go-enumerator/internal/generator/colorplain"
 )
 
 func Test_Color_Of(t *testing.T) {
@@ -46,6 +48,7 @@ func Test_Color_Of(t *testing.T) {
 			name:  `GIVEN "Red" WHEN Of THEN Red`,
 			value: "Red",
 			then: func(t *testing.T, r result) {
+				t.Helper()
 				assert.NoError(t, r.err)
 				assert.Equal(t, color.Red, r.color)
 			},
@@ -54,6 +57,7 @@ func Test_Color_Of(t *testing.T) {
 			name:  `GIVEN "Green" WHEN Of THEN Green`,
 			value: "Green",
 			then: func(t *testing.T, r result) {
+				t.Helper()
 				assert.NoError(t, r.err)
 				assert.Equal(t, color.Green, r.color)
 			},
@@ -62,6 +66,7 @@ func Test_Color_Of(t *testing.T) {
 			name:  `GIVEN "Blue" WHEN Of THEN Blue`,
 			value: "Blue",
 			then: func(t *testing.T, r result) {
+				t.Helper()
 				assert.NoError(t, r.err)
 				assert.Equal(t, color.Blue, r.color)
 			},
@@ -70,6 +75,7 @@ func Test_Color_Of(t *testing.T) {
 			name:  `GIVEN "" WHEN Of THEN error`,
 			value: "",
 			then: func(t *testing.T, r result) {
+				t.Helper()
 				assert.Error(t, r.err)
 				var invalidColorNameError color.InvalidColorNameError
 				assert.ErrorAs(t, r.err, &invalidColorNameError)
@@ -81,6 +87,7 @@ func Test_Color_Of(t *testing.T) {
 			name:  `GIVEN "InvalidColor" WHEN Of THEN error`,
 			value: "InvalidColor",
 			then: func(t *testing.T, r result) {
+				t.Helper()
 				assert.Error(t, r.err)
 				var invalidColorNameError color.InvalidColorNameError
 				assert.ErrorAs(t, r.err, &invalidColorNameError)
@@ -93,9 +100,9 @@ func Test_Color_Of(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			color, err := color.Of(tt.value)
+			clr, err := color.Of(tt.value)
 			tt.then(t, result{
-				color: color,
+				color: clr,
 				err:   err,
 			})
 		})

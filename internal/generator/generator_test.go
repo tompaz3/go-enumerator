@@ -53,6 +53,7 @@ var expectedColorWithUndefinedAndJSONMarshallingNilToUndefined []byte
 //go:embed colorwithoutcopyright/expected_color.txt
 var expectedColorWithoutCopyrightClause []byte
 
+//nolint:funlen // this test prepares a few test cases, which tend to be lengthy
 func Test_Generator(t *testing.T) {
 	t.Parallel()
 
