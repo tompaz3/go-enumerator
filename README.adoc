@@ -1,0 +1,164 @@
+= go-enumerator
+:sectnums:
+:sectnumlevels: 5
+:toc: left
+:toclevels: 5
+:source-highlighter: rouge
+:icons: font
+
+`go-enumerator` is a tool for generating compile-time safe enumerations in Go. It follows the _sealed interface_ pattern to forbid value manipulation outside the package.
+
+[#installation]
+== Installation
+
+Use standard `go install` command to install `go-enumerator` executable:
+
+[source,shell,linenums,caption="install"]
+----
+go install github.com/tompaz3/go-enumerator
+----
+
+This will install the `go-enumerator` executable in your `$GOPATH/bin` directory.
+
+[#usage]
+== Usage
+`go-enumerator` generates Go compile-time safe enumerations. It is encouraged to create enums in their own, separate packages to forbid value manipulation.
+
+To generate the enum use the `go-enumerator` binary directly or through `//go:generate` directive.
+
+[[usage-generate_using_binary,Generate using binary]]
+Generate using `go-enumerator` binary:
+[source,shell,linenums,caption="generate.sh"]
+----
+# generate Color enum with Undefined,Red,Green,Blue values
+# with JSON marshalling support, undefined value
+# and deserialize unknown values to Undefined
+go-enumerator -destination ./color/color.go -package color -type Color -values Undefined,Red,Green,Blue -undefined Undefined -marshal-json -unmarshal-json-to-undefined --copyright ../../LICENSE
+----
+
+[[usage-generate_using_go_generate_directive,Generate using go:generate directive]]
+Generate using `//go:generate` directive:
+[source,go,linenums,caption="generate.go"]
+----
+// generate Color enum with Undefined,Red,Green,Blue values
+// with JSON marshalling support, undefined value
+// and deserialize unknown values to Undefined
+
+//go:generate go-enumerator -destination ./color/color.go -package color -type Color -values Undefined,Red,Green,Blue -undefined Undefined -marshal-json -unmarshal-json-to-undefined --copyright ../../LICENSE
+----
+
+[#usage-arguments]
+=== Arguments
+
+`go-enumerator` supports the following arguments:
+
+.Arguments
+[%autowidth]
+|===
+| Argument | Default value | Description | Examples
+
+| destination | "" | _Optional_: Destination file path. os.Stdout if empty | `-destination ./color/color.go`
+
+| package | "" | *Required*: Package name | `-package color`
+
+| type | "" | *Required*: Enum type name | `-type Color`
+
+| values | "" | *Required*: Enum values separated by comma | `-values Undefined,Red,Green,Blue`
+
+| undefined | "" | _Optional_: Enum undefined value (used for `OfOrUndefined` method). Must be one of the values provided as `values` parameter.| `-undefined Undefined`
+
+| marshal-json | false | _Optional_: Generate JSON marshalling methods | `-marshal-json`
+
+| unmarshal-json-to-undefined | false | _Optional_: Deserialize unknown values to `undefined` value | `-unmarshal-json-to-undefined`
+
+| copyright | "" | _Optional_: Copyright notice to be included in the generated file | `-copyright ../../LICENSE`
+
+| version | false | _Optional_: Print version. Will ignore all the other flags and simply print the executable version. | `-version`
+|===
+
+[#usage-example_generated_enum]
+=== Example generated enum
+
+You will find the Color enum generated with the command presented above <<usage-generate_using_binary>> (or <<usage-generate_using_go_generate_directive>>) in the link:./internal/generator/directivetest/color/color.go[color.go] file.
+
+[#usage-example_generated_enum-generated_file_structure]
+==== Generated file structure
+
+The generated file will consist of:
+
+* Copyright notice (if `copyright` parameter specified)
+* Package declaration
+* Enum interface definition with the `type` name, `sealedType()` (_sealed function_), `String() string` and `ToJSONMarshallable() MarshallableType` functions (see <<usage-example_generated_enum-generated_file_structure-marshallable_type>>) for details.
+* Base struct implementation
+** Global variable declarations with enum values
+** `String() string` function
+** `Of(name string) (Type, bool)` function implementation for mapping the enum based on the string value
+** `OfOrUndefined(name string) Type` function implementation for mapping the enum based on the string value, returning `undefined` if the value is not found - only if `undefined` parameter is specified
+** `ToJSONMarshallable() MarshallableType` function to change this enum to JSON marshallable type - only if `marshal-json` parameter is specified
+
+[[usage-example_generated_enum-generated_file_structure-marshallable_type,MarshallableType]]
+* `MarshallableType` type for JSON marshalling. Separate type is used as `json.Unmarshaler` requires pointer receiver. If you ever want to use the enum in a struct that implements `json.Marshaler` or `json.Unmarshaler`, use the related `MarshallableType` type.
+** `MarshalJSON() ([]byte, error)` function implementation for JSON marshalling.
+** `UnmarshalJSON(data []byte) error` function implementation for JSON unmarshalling.
+
+* `InvalidTypeNameErr` - error for invalid enum type name, returned by `Of(name string) (Type, error)` function
+
+[#usage-example_generated_enum-enum_contract]
+=== Example Color enum contract
+
+[#usage-example_generated_enum-enum_contract-global_variables]
+==== Global variables
+
+Enum has global variables with enum values, which can be used in a type-safe manner.
+
+[source,go,linenums,caption="color-variables.go"]
+----
+package color
+
+var (
+	Undefined = baseColor{name: "Undefined"} // Undefined value
+	Red       = baseColor{name: "Red"}       // Red value
+	Green     = baseColor{name: "Green"}     // Green value
+	Blue      = baseColor{name: "Blue"}      // Blue value
+)
+----
+
+[#usage-example_generated_enum-enum_contract-methods]
+==== Methods
+
+* `String() string` - transforms enum to `string` value (implements `fmt.Stringer` interface)
+
+* `Of(name string) (Type, error)` - maps `string` value to enum value. Returns the enum value or `InvalidColorNameErr` if the value is not found.
+
+* `OfOrUndefined(name string) Type` - maps `string` value to enum value. Returns the enum value or `Undefined` if the value is not found.
+
+* `ToJSONMarshallable() MarshallableType` - transforms enum to `MarshallableType` (implements `json.Marshaler` and `json.Unmarshaler` interfaces)
+
+[#usage-example_generated_enum-enum_contract-marshallable_type]
+==== MarshallableType
+
+`MarshallableColor` is a special type for JSON marshalling. Standard `Color` enum (_interface_) does not support JSON marshalling. To marshal the enum, use the `MarshallableColor` intermediate type.
+
+* `MarshalJSON() ([]byte, error)` - marshals the enum to JSON.
+
+* `UnmarshalJSON(data []byte) error` - unmarshals the enum from JSON.
+
+* `ToEnum() Color` - converts `MarshallableColor` to `Color` enum.
+
+
+[#license]
+== License
+
+The generator is licensed under the MIT License. License available at link:LICENSE[LICENSE].
+
+[#contributing]
+== Contributing
+
+No contribution policy has been defined yet. It is a tiny, single-contributor project.
+
+The project is considered feature-complete at the moment. Most likely, will be updated for bug fixing and vulnerability patches only.
+
+In case the author cannot maintain the project, a new strategy will be created to keep the project alive.
+
+
+
