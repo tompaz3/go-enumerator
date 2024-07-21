@@ -1,4 +1,6 @@
-# Copyright (c) 2024-2024 Tomasz Paździurek
+# MIT License
+#
+# Copyright (c) 2024 Tomasz Paździurek
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -17,6 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+#
 
 
 linters-run:
@@ -27,6 +30,9 @@ linters-run:
 go-install:
   @go install go.uber.org/nilaway/cmd/nilaway@latest
   @go install mvdan.cc/gofumpt@latest
+
+go-install-enumerator:
+  @go install github.com/tompaz3/go-enumerator@v0.0.1
 
 go-test:
   @ginkgo -r -p ./...
