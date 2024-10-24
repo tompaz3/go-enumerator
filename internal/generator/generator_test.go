@@ -72,6 +72,7 @@ func Test_Generator(t *testing.T) {
 					Package:       "color",
 					Type:          "Color",
 					Values:        []string{"Red", "Green", "Blue"},
+					CheckSumType:  true,
 				}
 			},
 			expected: expectedColor,
