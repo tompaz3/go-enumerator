@@ -9,7 +9,7 @@ import (
 	_ "embed" // embed package is imported for go:embed directive
 )
 
-//go:generate go-enumerator -destination ./color/color.go -package color -type Color -values Undefined,Red,Green,Blue -undefined Undefined -marshal-json -unmarshal-json-to-undefined -copyright ../../../LICENSE
+//go:generate go-enumerator -destination ./color/color.go -package color -type Color -values Undefined,Red,Green,Blue -undefined Undefined -marshal-json -unmarshal-json-to-undefined -copyright ../../../LICENSE -go-check-sumtype
 
 //go:embed color/expected_color.txt
 var expectedColor []byte

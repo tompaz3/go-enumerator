@@ -32,7 +32,7 @@ import (
 	"github.com/tompaz3/go-enumerator/internal/generator"
 )
 
-var version = "v0.0.5"
+var version = "v0.0.6"
 
 func main() {
 	inputArgs := strings.Join(os.Args, " ")
@@ -47,6 +47,11 @@ func main() {
 		"unmarshal-json-to-undefined",
 		false,
 		"unmarshal unknown or null values to undefined",
+	)
+	checkSumType := flag.Bool(
+		"go-check-sumtype",
+		false,
+		"add go-check-sumtype comment for exhaustiveness check using https://github.com/alecthomas/go-check-sumtype",
 	)
 	versionPrintRequested := flag.Bool("version", false, "print version")
 	flag.Parse()
@@ -72,6 +77,7 @@ func main() {
 				NilToUndefined: *unmarshalUnknownToUndefined,
 			},
 		},
+		CheckSumType: *checkSumType,
 	}
 	err := generator.Generate(enum)
 	if err != nil {

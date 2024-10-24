@@ -84,6 +84,8 @@ Generate using `//go:generate` directive:
 
 | copyright | "" | _Optional_: Copyright notice to be included in the generated file | `-copyright ../../LICENSE`
 
+| go-check-sumtype | false | _Optional_: Add `//sumtype:decl` directive comment for generated sum type, recognized by link:https://github.com/alecthomas/go-check-sumtype[go-check-sumtype] linter for exhaustiveness checks | `-go-check-sumtype`
+
 | version | false | _Optional_: Print version. Will ignore all the other flags and simply print the executable version. | `-version`
 |===
 
