@@ -49,9 +49,9 @@ func main() {
 		"unmarshal unknown or null values to undefined",
 	)
 	checkSumType := flag.Bool(
-		"go-checksum-type",
+		"go-check-sumtype",
 		false,
-		"add go-checksum-type comment for exhaustiveness check using https://github.com/alecthomas/go-check-sumtype",
+		"add go-check-sumtype comment for exhaustiveness check using https://github.com/alecthomas/go-check-sumtype",
 	)
 	versionPrintRequested := flag.Bool("version", false, "print version")
 	flag.Parse()
