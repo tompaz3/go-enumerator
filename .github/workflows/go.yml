@@ -13,6 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - uses: extractions/setup-just@v2
+    - uses: golangci/golangci-lint-action@v6
 
     - name: Set up Go
       uses: actions/setup-go@v4
