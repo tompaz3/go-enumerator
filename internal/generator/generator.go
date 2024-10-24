@@ -156,6 +156,11 @@ func (g *generator) generateImports() {
 func (g *generator) generateInterface() {
 	w := g.writer
 	e := g.enum
+
+	if e.CheckSumType {
+		w.Line("//sumtype:decl")
+	}
+
 	w.Line("type " + e.Type + " interface {")
 	w.Line("\tsealed" + e.Type + "()")
 	w.Line("\tString() string")

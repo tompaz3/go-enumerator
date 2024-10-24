@@ -44,7 +44,9 @@ type Enum struct {
 	Values  []string
 
 	UndefinedValue string
-	Marshalling    MarshalOptions
+
+	Marshalling  MarshalOptions
+	CheckSumType bool
 }
 
 type MarshalOptions struct {

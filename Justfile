@@ -34,11 +34,16 @@ go-install:
 go-install-enumerator:
   @go install github.com/tompaz3/go-enumerator@v0.0.5
 
+go-install-enumerator-local:
+  @go install .
+
 go-generate:
   @go generate ./...
 
 go-test:
   @go test ./...
+
+go-full-test: go-install go-install-enumerator-local go-generate go-linters-run go-test
 
 go-build:
   @go build -o ./bin/enumerator .
