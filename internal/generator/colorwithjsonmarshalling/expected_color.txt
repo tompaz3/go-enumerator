@@ -80,7 +80,7 @@ func (b *MarshallableColor) UnmarshalJSON(jsonBytes []byte) error {
 		return nil
 	}
 
-	jsonString := bytes.NewBuffer(jsonBytes).String();
+	jsonString := bytes.NewBuffer(jsonBytes).String()
 	if jsonString == "null" {
 		return nil
 	}

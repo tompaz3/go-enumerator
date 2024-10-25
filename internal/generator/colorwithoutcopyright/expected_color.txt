@@ -65,7 +65,7 @@ func (b *MarshallableColor) UnmarshalJSON(jsonBytes []byte) error {
 		b.en = Undefined
 	}
 
-	jsonString := bytes.NewBuffer(jsonBytes).String();
+	jsonString := bytes.NewBuffer(jsonBytes).String()
 	if jsonString == "null" {
 		b.en = Undefined
 	}
