@@ -92,7 +92,7 @@ func (g *jsonMarshallerGenerator) generateUnmarshalJSON() {
 
 	g.generateUnmarshalFromEmptyBytes()
 
-	w.Line("\tjsonString := bytes.NewBuffer(jsonBytes).String();")
+	w.Line("\tjsonString := bytes.NewBuffer(jsonBytes).String()")
 
 	g.generateUnmarshalFromNull()
 	g.generateUnmarshalFromString()
