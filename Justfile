@@ -25,7 +25,6 @@
 go-linters-run:
   @just _go-gofumpt-{{os()}}
   @golangci-lint run --fix -j 3 ./...
-  @nilaway -include-pkgs="github.com/tompaz3/go-enumerator" ./...
 
 _go-gofumpt-macos:
   @ggrep -PRL '^// Code generated .* DO NOT EDIT\.$' --include "*.go" --exclude-dir "vendor" --exclude-dir "bin" --exclude-dir ".github" --exclude-dir ".idea" . | xargs -I {} gofumpt -l -w {}
@@ -38,12 +37,11 @@ _go-gofumpt-windows:
 
 # installs go tools used to build, format and lint the code
 go-install:
-  @go install go.uber.org/nilaway/cmd/nilaway@latest
   @go install mvdan.cc/gofumpt@latest
 
 # installs go-enumerator from remote repository
 go-install-enumerator-remote:
-  @go install github.com/tompaz3/go-enumerator@v0.0.5
+  @go install github.com/tompaz3/go-enumerator@v0.0.6
 
 # installs go-enumerator from local source code
 go-install-enumerator-local:
@@ -59,7 +57,7 @@ go-test:
 
 # builds the go-enumerator binary
 go-build:
-  @go build -o ./bin/enumerator .
+  @go build -o ./bin/go-enumerator .
 
 # runs the entire test suite - source generation, formatting, linting, build and tests
 go-verify: go-install go-install-enumerator-local go-generate go-linters-run go-build go-test

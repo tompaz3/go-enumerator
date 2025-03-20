@@ -80,6 +80,9 @@ func (g *jsonMarshallerGenerator) generateMarshalJSON() {
 	w := g.writer
 	e := g.enum
 	w.Line("func (b " + e.marshallableStruct + ") MarshalJSON() ([]byte, error) {")
+	w.Line("\tif b.en == nil {")
+	w.Line("\t\treturn []byte(\"null\"), nil")
+	w.Line("\t}")
 	w.Line("\treturn []byte(\"\\\"\" + b.en.String() + \"\\\"\"), nil")
 	w.Line("}")
 	w.LineBreak()

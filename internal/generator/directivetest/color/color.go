@@ -81,6 +81,9 @@ type MarshallableColor struct {
 }
 
 func (b MarshallableColor) MarshalJSON() ([]byte, error) {
+	if b.en == nil {
+		return []byte("null"), nil
+	}
 	return []byte("\"" + b.en.String() + "\""), nil
 }
 

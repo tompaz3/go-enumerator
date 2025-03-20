@@ -163,6 +163,15 @@ func Test_MarshallableColor_MarshalJSON(t *testing.T) {
 	}
 }
 
+func Test_MarshallableColor_Empty_ToMarshalJSON(t *testing.T) {
+	t.Parallel()
+
+	marshallable := color.MarshallableColor{}
+	marshalled, err := marshallable.MarshalJSON()
+	assert.NoError(t, err)
+	assert.Equal(t, []byte(`null`), marshalled)
+}
+
 func Test_MarshallableColor_UnmarshalJSON(t *testing.T) {
 	t.Parallel()
 
