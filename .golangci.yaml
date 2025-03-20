@@ -159,7 +159,6 @@ linters:
     - staticcheck # It's a set of rules from staticcheck. It's not the same thing as the staticcheck binary. The author of staticcheck doesn't support or approve the use of staticcheck as a library inside golangci-lint.
     - tagalign # Check that struct tags are well aligned.
     - tagliatelle # Checks the struct tags.
-    - tenv # Tenv is analyzer that detects using os.Setenv instead of t.Setenv since Go1.17.
     - testpackage # Linter that makes you use a separate _test package.
     - thelper # Thelper detects tests helpers which is not start with t.Helper() method.
     - unconvert # Remove unnecessary type conversions.
@@ -170,13 +169,13 @@ linters:
     - whitespace # Whitespace is a linter that checks for unnecessary newlines at the start and end of functions, if, for, etc.
     - wrapcheck # Checks that errors returned from external packages are wrapped.
 
-issues:
+#issues:
   # Excluding configuration per-path, per-linter, per-text and per-source
 #  exclude-rules:
 #    - path: _test\.go
 #      linters:
 #        - funlen
-  exclude-files:
+#  exclude-files:
 #    - ".*\\.pb\\.go"
-  exclude-dirs:
+#  exclude-dirs:
 #    - build
