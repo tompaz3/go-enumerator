@@ -33,7 +33,7 @@ import (
 	"github.com/tompaz3/go-enumerator/internal/generator"
 )
 
-// version - can be overwritten by -ldflags "-X main.version=v<major.minor.patch>"
+// version - can be overwritten by -ldflags "-X main.version=v<major.minor.patch>".
 var version = "v0.0.7"
 
 func main() {
