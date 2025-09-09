@@ -102,7 +102,7 @@ func printVersion() {
 }
 
 func resolveVersion() string {
-	if version != "" { // overwritten by -ldflags
+	if version != "" && version != "v0.0.7" { // overwritten by -ldflags
 		return version
 	}
 
