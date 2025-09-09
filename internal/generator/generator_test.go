@@ -28,6 +28,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+
 	"github.com/tompaz3/go-enumerator/internal/generator"
 
 	_ "embed" // embed package is imported for go:embed directive
