@@ -27,11 +27,13 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"runtime/debug"
 	"strings"
 
 	"github.com/tompaz3/go-enumerator/internal/generator"
 )
 
+// version - can be overwritten by -ldflags "-X main.version=v<major.minor.patch>"
 var version = "v0.0.7"
 
 func main() {
@@ -96,5 +98,29 @@ func stripValueNames(valueNames string) []string {
 }
 
 func printVersion() {
-	fmt.Println(version)
+	fmt.Println(resolveVersion())
+}
+
+func resolveVersion() string {
+	if version != "" { // overwritten by -ldflags
+		return version
+	}
+
+	info, ok := debug.ReadBuildInfo()
+	if !ok {
+		return version
+	}
+
+	ver := info.Main.Version
+	if ver != "" {
+		return ver
+	}
+
+	for _, s := range info.Settings {
+		if s.Key == "vcs.revision" {
+			return s.Value
+		}
+	}
+
+	return version
 }
