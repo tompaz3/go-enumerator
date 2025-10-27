@@ -41,7 +41,7 @@ go-install:
 
 # installs go-enumerator from remote repository
 go-install-enumerator-remote:
-  @go install github.com/tompaz3/go-enumerator@v0.0.7
+  @go install github.com/tompaz3/go-enumerator@v0.0.9
 
 # installs go-enumerator from local source code
 go-install-enumerator-local:
