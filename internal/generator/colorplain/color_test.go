@@ -108,3 +108,9 @@ func Test_Color_Of(t *testing.T) {
 		})
 	}
 }
+
+func Test_Color_Values(t *testing.T) {
+	t.Parallel()
+
+	assert.Equal(t, []color.Color{color.Red, color.Green, color.Blue}, color.Values())
+}
