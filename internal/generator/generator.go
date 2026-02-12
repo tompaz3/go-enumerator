@@ -109,6 +109,7 @@ func generateSource(enum Enum) ([]byte, error) {
 	gen.generateInterface()
 	gen.generateBaseImpl()
 	gen.generateValues()
+	gen.generatePublicValuesFunction()
 	gen.generateOfString()
 	gen.generateJSONMarshalling()
 	gen.generateInvalidNameError()
@@ -202,6 +203,21 @@ func (g *generator) generateValues() {
 	}
 	w.Line("\t}")
 	w.Line(")")
+	w.LineBreak()
+}
+
+func (g *generator) generatePublicValuesFunction() {
+	w := g.writer
+	e := g.enum
+	w.Line("// Values returns all possible values of " + e.Type)
+	w.Line("// IMPORTANT: Generates a new slice every time to avoid overwriting enum values")
+	w.Line("func Values() []" + e.Type + " {")
+	w.Line("\treturn []" + e.Type + "{")
+	for _, value := range e.Values {
+		w.Line("\t\t" + value + ",")
+	}
+	w.Line("\t}")
+	w.Line("}")
 	w.LineBreak()
 }
 
