@@ -38,6 +38,17 @@ var (
 	}
 )
 
+// Values returns all possible values of Color
+// IMPORTANT: Generates a new slice every time to avoid overwriting enum values
+func Values() []Color {
+	return []Color{
+		Undefined,
+		Red,
+		Green,
+		Blue,
+	}
+}
+
 func Of(name string) (Color, error) {
 	if value, ok := allValuesByString[name]; ok {
 		return value, nil
