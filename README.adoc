@@ -105,6 +105,7 @@ The generated file will consist of:
 * Base struct implementation
 ** Global variable declarations with enum values
 ** `String() string` function
+** `Values() []Type` function
 ** `Of(name string) (Type, bool)` function implementation for mapping the enum based on the string value
 ** `OfOrUndefined(name string) Type` function implementation for mapping the enum based on the string value, returning `undefined` if the value is not found - only if `undefined` parameter is specified
 ** `ToJSONMarshallable() MarshallableType` function to change this enum to JSON marshallable type - only if `marshal-json` parameter is specified
@@ -139,13 +140,15 @@ var (
 [#usage-example_generated_enum-enum_contract-methods]
 ==== Methods
 
-* `String() string` - transforms enum to `string` value (implements `fmt.Stringer` interface)
+* `String() string` — transforms enum to `string` value (implements `fmt.Stringer` interface)
 
-* `Of(name string) (Type, error)` - maps `string` value to enum value. Returns the enum value or `InvalidColorNameErr` if the value is not found.
+* `Values() []Type` — returns a new slice consisting of all the values of this enum.
 
-* `OfOrUndefined(name string) Type` - maps `string` value to enum value. Returns the enum value or `Undefined` if the value is not found.
+* `Of(name string) (Type, error)` — maps `string` value to enum value. Returns the enum value or `InvalidColorNameErr` if the value is not found.
 
-* `ToJSONMarshallable() MarshallableType` - transforms enum to `MarshallableType` (implements `json.Marshaler` and `json.Unmarshaler` interfaces)
+* `OfOrUndefined(name string) Type` — maps `string` value to enum value. Returns the enum value or `Undefined` if the value is not found.
+
+* `ToJSONMarshallable() MarshallableType` — transforms enum to `MarshallableType` (implements `json.Marshaler` and `json.Unmarshaler` interfaces)
 
 [#usage-example_generated_enum-enum_contract-marshallable_type]
 ==== MarshallableType
