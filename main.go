@@ -32,7 +32,7 @@ import (
 	"github.com/tompaz3/go-enumerator/internal/generator"
 )
 
-var version = "v0.0.9"
+var version = "v0.0.10"
 
 func main() {
 	inputArgs := strings.Join(os.Args, " ")
