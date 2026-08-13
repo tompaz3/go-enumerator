@@ -35,7 +35,14 @@ import (
 var version = "v0.0.10"
 
 func main() {
-	inputArgs := strings.Join(os.Args, " ")
+	var args []string
+	if split := strings.Split(os.Args[0], "/"); len(split) > 1 {
+		args = append(args, split[len(split)-1])
+		args = append(args, os.Args[1:]...)
+	} else {
+		args = os.Args
+	}
+	inputArgs := strings.Join(args, " ")
 	copyrightFile := flag.String("copyright", "", "license file")
 	destination := flag.String("destination", "", "destination file")
 	packageName := flag.String("package", "", "package name")
